@@ -1,0 +1,48 @@
+// every cell has eight neighbors, which are the cells that are horizontally, vertically or diagonally adjacent.
+// brief example: 
+//  0 (non active cell), 1 (active cell), center ('cell')
+// 0   0    0
+// 0  cell  0
+// 0   0   0
+// this would be 0.
+
+
+{
+    // these are coordinates, 
+    // corresponding to the eight neighboring cells
+    const xAxis = [0, 1, 1, 1, 0, -1, -1, -1]
+    const yAxis = [1, 1, 0, -1, -1, -1, 0, 1]
+    
+    // to generate a randomly active cell (1), or non-active (0)
+    // on the 3 by 3 grid
+
+    const generateCell = _ => {
+        const cell = []
+        for (let x = 0; x < 3; x++) {
+            cell[x] = []
+            for (let y = 0; y < 3; y++) {
+                cell[x][y] = Number(Math.random() < 0.5)
+            }    
+        }
+        return cell
+    }
+   // now to count number of active neighboring cells
+   const countNeighbors = cell => {
+       let neighbors = 0
+       // trying to loop clockwise through the neighboring cells
+       let previous = cell[0][2]
+       for (let i = 0; i < 8; i++) {
+           let current = cell[1 + xAxis[i]][1 + yAxis[i]]
+           neighbors += Number(!previous && current)
+           previous = current
+       }
+       // if there aren't any differing numbers (0 to 1, or 1 to 0)
+       // let's check if all cells are 1
+       return !neighbors && prev ? 1 : neighbors
+   }
+
+   const cell = generateCell()
+   console.table(cell)
+   console.log(countNeighbors(cell))
+}
+
